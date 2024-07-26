@@ -1,0 +1,132 @@
+//SCENARIO 2 - WAIT UNTIL AND POST ACTIONS
+pipeline {
+    agent any
+    stages {
+        stage('Stage 1') {
+            steps {
+                timeout(time: 1, unit: 'SECONDS') {
+                    waitUntil {
+                        script {
+                            echo 'This stage will execute again and again until timeout is reached then the
+                            stage will fail.'
+                            return false
+                        }
+                    }
+                }
+            }
+        
+
+        // this will execute after the stage fails
+        // post { ... }: Defines actions that run after the completion of the stage.
+        // always { ... }: Executes the enclosed block regardless of the stage outcome.
+        // success { ... }: Executes if the stage completes successfully.
+        // changed { ... }: Executes if the current build status is different from the previous build status.
+        // aborted { ... }: Executes if the stage is aborted.
+        // failure { ... }: Executes if the stage fails.
+
+            post {
+                always { 
+                    script { 
+                        echo 'post.stage1.always' 
+                    } 
+                }
+                success { 
+                    script { 
+                        echo 'post.stage1.success' 
+                    } 
+                }
+                changed { 
+                    script { 
+                        echo 'post.stage1.changed' 
+                    } 
+                }
+                aborted { 
+                    script { 
+                        echo 'post.stage1.aborted' 
+                    } 
+                }
+                failure { 
+                    script { 
+                        echo 'post.stage1.failure' 
+                    } 
+                }            
+            }
+        }  
+    }//stages end
+
+    // this below post will execute after the completion of pipeline
+
+    // post { ... }: Defines actions that run after the completion of the entire pipeline.
+    // always { ... }: Executes the enclosed block regardless of the pipeline outcome.
+    // success { ... }: Executes if the pipeline completes successfully.
+    // changed { ... }: Executes if the current build status is different from the previous build status.
+    // aborted { ... }: Executes if the pipeline is aborted.
+    // failure { ... }: Executes if the pipeline fails.
+    post {
+        always { 
+            script { 
+                echo 'post.always' 
+            } 
+        }
+        success { 
+            script { 
+                echo 'post.success' 
+            } 
+        }
+        changed { 
+            script { 
+                echo 'post.changed' 
+            } 
+        }
+        aborted { 
+            script { 
+                echo 'post.aborted' 
+            } 
+        }
+        failure { 
+            script { 
+                echo 'post.failure' 
+            } 
+        }
+    }
+}
+
+
+
+
+//-------------------------------------------------------------------
+
+
+//SCENARIO 2 - WAIT UNTIL AND POST ACTIONS
+// pipeline {
+// agent any
+// stages {
+// stage('Stage 1') {
+// steps {
+// timeout(time: 1, unit: 'SECONDS') {
+// waitUntil {
+// script {
+// echo 'This stage will execute again and again until timeout is reached then the
+// stage will fail.'
+// return false
+// }
+// }
+// }
+// }
+// post {
+// always { script { echo 'post.stage1.always' } }
+// success { script { echo 'post.stage1.success' } }
+// changed { script { echo 'post.stage1.changed' } }
+// aborted { script { echo 'post.stage1.aborted' } }
+// failure { script { echo 'post.stage1.failure' } }
+// }
+// }
+// }
+// post {
+// always { script { echo 'post.always' } }
+// success { script { echo 'post.success' } }
+// changed { script { echo 'post.changed' } }
+// aborted { script { echo 'post.aborted' } }
+// failure { script { echo 'post.failure' } }
+// }
+// }
