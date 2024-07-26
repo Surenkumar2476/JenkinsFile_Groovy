@@ -22,15 +22,15 @@ pipeline {
                                 }
                             }    
                         }
+                        stage('Stage 3') {
+                            steps {
+                                script {
+                                    echo 'Stage 3'
+                                    sh 'sleep 20'
+                                }
+                            }
+                        }
                     }    
-                }
-            }
-        }
-        stage('Stage 3') {
-            steps {
-                script {
-                    echo 'Stage 3'
-                    sh 'sleep 20'
                 }
             }
         }

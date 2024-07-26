@@ -1,0 +1,13 @@
+pipeline{
+    agent: any
+    stages{
+        stage('saying hello'){
+            steps{
+                script{
+                    echo "Welcome surenkumar you have created your basic pipeline"
+                    sh "pwd"
+                }
+            }
+        }
+    }
+}
