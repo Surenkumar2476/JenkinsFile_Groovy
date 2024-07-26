@@ -1,4 +1,4 @@
-# SCENARIO 5 - Parameterized build
+//SCENARIO 5 - Parameterized build
 pipeline {
     agent any
     parameters {
